@@ -1,0 +1,46 @@
+{
+  "movies": [
+    {
+      "id": 1,
+      "title": "Parasite",
+      "country": "South-Korea",
+      "lat": 37.57,
+      "long": 126.98,
+      "poster": "parasite-poster.png",
+      "rotX": 180,
+      "rotY": 180,
+      "rotZ": 5,
+      "posX": 1.15,
+      "posY": 0.45,
+      "posZ": -1.05
+    },
+    {
+      "id": 2,
+      "title": "Portrait of the Lady on Fire",
+      "country": "France",
+      "lat": 48.85,
+      "long": 2.35,
+      "poster": "portrait-poster.png",
+      "rotX": 4,
+      "rotY": 0,
+      "rotZ": 5,
+      "posX":1.35,
+      "posY": 0.7,
+      "posZ": 0.32
+    },
+    {
+      "id": 3,
+      "title": "Roma",
+      "country": "Mexico",
+      "lat": 19.45,
+      "long": -99.12,
+      "poster": "roma-poster.png",
+      "rotX": -2,
+      "rotY": 0,
+      "rotZ": 5,
+      "posX":0.25,
+      "posY": 0.4,
+      "posZ": 0.42
+    }
+  ]
+}

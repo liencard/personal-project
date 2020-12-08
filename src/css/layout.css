@@ -1,0 +1,27 @@
+.layout {
+  @media (--only-medium-screen) {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: min-content auto;
+    height: 100vh;
+  }
+}
+
+.header {
+  @media (--only-medium-screen) {
+    grid-column: 1;
+  }
+}
+
+.prices {
+  @media (--only-medium-screen) {
+    grid-column: 1;
+  }
+}
+
+.content {
+  @media (--only-medium-screen) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+}

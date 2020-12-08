@@ -1,0 +1,70 @@
+.prices {
+  padding-top: 0;
+
+  @media (--only-medium-screen) {
+    background-image: url(../../assets/img/plant-based-coffee.png);
+    background-repeat: no-repeat;
+    background-position: calc(50% - var(--spacerSmall)) calc(100% - var(--spacerBig));
+  }
+}
+
+.prices__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  grid-gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.price__button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--colorLightest);
+  padding: var(--spacerSmall);
+  border-radius: .4rem;
+  cursor: pointer;
+}
+
+.price__button__wrapper {
+  display: flex;
+  align-items: center;
+  margin-right: var(--spacerSmall);
+
+  @media (--only-small-screen) {
+    display: block;
+  }
+}
+
+.price__button__name {
+  display: block;
+  white-space: nowrap;
+  margin-right: var(--spacerSmall);
+
+  @media (--only-small-screen) {
+    margin-right: 0;
+  }
+}
+
+.price__button__amount {
+  font-size: var(--fontSmall);
+  color: var(--colorGrayDark);
+  padding-top: calc(var(--spacerSmall) / 3);
+
+  @media (--only-small-screen) {
+    padding-top: 0;
+  }
+}
+
+.price__button__plus {
+  display: block;
+  padding: calc(var(--spacerSmall) / 2.5) calc(var(--spacerSmall) * 1);
+  background: var(--colorSecondary);
+  border-radius: .3rem;
+
+  @media (--only-small-screen) {
+    padding: var(--spacerSmall) calc(var(--spacerSmall) * 1.1);
+
+  }
+}
