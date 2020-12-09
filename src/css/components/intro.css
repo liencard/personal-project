@@ -1,3 +1,7 @@
+.index {
+  background: linear-gradient(107.07deg, #29469a 0%, #29245e 100%);
+}
+
 .content {
   position: relative;
   z-index: 1000;
@@ -29,10 +33,16 @@
   padding: 4rem 2rem;
 }
 
-.btn {
+.index .btn {
   border: 0.1rem solid white;
   color: white;
   padding: 1rem 2rem;
   background-color: transparent;
   border-radius: 5rem;
+  cursor: pointer;
+}
+
+.index .btn:hover {
+  background-color: white;
+  color: var(--colorPurple);
 }

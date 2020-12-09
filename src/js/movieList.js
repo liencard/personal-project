@@ -1,20 +1,12 @@
-//import CurrentMovie from "./model/currentMovie.js";
 import currentMovie from "./model/currentMovie.js";
+import data from "./../assets/data/movies.json";
 
+import barba from "@barba/core";
+import { gsap } from "gsap";
 import { autorun } from "mobx";
-let movies = [];
 
-const loadMovies = async () => {
-  const jsonFile = "./src/assets/data/movies.json";
-  const response = await fetch(jsonFile);
-  const data = await response.json();
-
-  movies = data.movies;
-  showMovies(data.movies);
-};
-
-const showMovies = (movies) => {
-  movies.forEach((movie) => {
+const showMovies = () => {
+  data.movies.forEach((movie) => {
     makeListItem(movie);
   });
 };
@@ -25,11 +17,13 @@ const makeListItem = (movie) => {
   $li.addEventListener(`click`, handleClickList);
   $li.dataset.id = movie.id;
   $li.innerHTML = `
+      <a class="list__itemLink" href="./src/detail.html">
         <img class="movie__poster" src="./src/assets/img/${movie.poster}" width="154px" height="238px" alt="movies poster ${movie.title}">
         <div class="movie__info">
             <p class="movie__title">${movie.title}</p>
             <p class="movie__country">${movie.country}</p>
         </div>
+      </a>
     `;
   document.querySelector(`.list`).appendChild($li);
 };
@@ -55,8 +49,42 @@ const handleClickList = (e) => {
   });
 };
 
-const init = () => {
-  loadMovies();
+const fadeOutContent = (data) => {
+  gsap.to(data.current.container, {
+    opacity: 0,
+  });
 };
 
-init();
+const fadeInContent = (data) => {
+  gsap.from(data.current.container, {
+    opacity: 0,
+  });
+};
+
+const moveGlobe = () => {
+  gsap.from("#container", {
+    duration: 0.5,
+    x: -300,
+  });
+};
+
+barba.init({
+  sync: true,
+
+  transitions: [
+    {
+      name: "home",
+      async leave(data) {
+        fadeOutContent(data);
+        moveGlobe;
+      },
+      async enter(data) {
+        fadeInContent(data);
+        showMovies();
+      },
+      async afterEnter() {
+        //
+      },
+    },
+  ],
+});

@@ -39,8 +39,11 @@
     "not dead"
   ],
   "dependencies": {
+    "@barba/core": "^2.9.7",
+    "@barba/css": "^2.1.15",
     "gltf-webpack-loader": "^1.0.6",
     "gsap": "^3.5.1",
+    "html-loader": "^1.3.2",
     "mobx": "^6.0.4",
     "three": "^0.123.0",
     "three-gltf-loader": "^1.111.0"

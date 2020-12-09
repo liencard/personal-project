@@ -17,3 +17,8 @@ body {
   background-color: var(--colorPurple);
   color: var(--colorWhite);
 }
+
+a {
+  color: white;
+  text-decoration: none;
+}

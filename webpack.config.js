@@ -11,6 +11,11 @@ module.exports = (env, { mode }) => {
       path: `${__dirname}/public`,
       filename: "[name].[hash].js",
     },
+    entry: {
+      index: "./src/index.js",
+      overview: "./src/overview.js",
+      detail: "./src/detail.js",
+    },
     devServer: {
       overlay: true,
       hot: true,
@@ -36,7 +41,7 @@ module.exports = (env, { mode }) => {
           ],
         },
         {
-          test: /\.(jpe?g|png|svg|webp)$/,
+          test: /\.(jpe?g|png|svg|webp|mp4)$/,
           use: {
             loader: "url-loader",
             options: {
@@ -73,7 +78,7 @@ module.exports = (env, { mode }) => {
         },
         {
           // here I match only IMAGE and BIN files under the gltf folder
-          test: /gltf.*\.(bin|png|jpe?g|gif)$/,
+          test: /gltf.*\.(bin|png|jpe?g|gif|mp4)$/,
           // or use url-loader if you would like to embed images in the source gltf
           loader: "file-loader",
           options: {
@@ -87,6 +92,17 @@ module.exports = (env, { mode }) => {
       new HtmlWebPackPlugin({
         template: "./src/index.html",
         filename: "./index.html",
+        chunks: ["index"],
+      }),
+      new HtmlWebPackPlugin({
+        template: "./src/overview.html",
+        filename: "./overview.html",
+        chunks: ["overview"],
+      }),
+      new HtmlWebPackPlugin({
+        template: "./src/detail.html",
+        filename: "./detail.html",
+        chunks: ["detail"],
       }),
       new MiniCssExtractPlugin({
         filename: "style.[contenthash].css",
