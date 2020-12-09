@@ -1,0 +1,21 @@
+:root {
+  --colorWhite: white;
+  --colorPurple: #29245e;
+  --colorBlue: #294496;
+  --colorLightBlue: #0bb4fa;
+
+  --spacerSmall: 0.75rem; /* 12px */
+  --spacerRegular: 1rem; /* 16px */
+  --spacerBig: 1.88rem; /* 30px */
+  --fontSmall: 0.75rem; /* 12px */
+  --fontRegular: 1.13rem; /* 18px */
+  --fontMedium: 1.25rem; /* 20px */
+  --fontBig: 1.75rem; /* 28px */
+  --font: "Nunito Sans", sans-serif;
+  --fontSerif: Calluna, sans-serif;
+  --fontWeightRegular: 400;
+  --fontWeightBold: 500;
+}
+
+@custom-media --only-small-screen (width >= 360px);
+@custom-media --only-medium-screen (width >= 900px);

@@ -1,0 +1,102 @@
+.trailer {
+  background-color: #29245e;
+}
+
+.trailer .movie__title {
+  color: white;
+  opacity: 0.3;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 900;
+  font-size: 150px;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  z-index: 15;
+  position: absolute;
+  top: 40%;
+  left: 10%;
+}
+
+.trailer .container {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.line {
+  width: 100vw;
+  height: 1.5px;
+  background-color: white;
+  position: absolute;
+  z-index: 2;
+  margin-top: 395px;
+}
+
+.video-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.svg-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+}
+
+.trailer svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  display: block;
+}
+
+.trailer svg mask rect {
+  fill: white;
+}
+
+.trailer svg > rect {
+  fill: #29245e;
+  -webkit-mask: url(#mask);
+  mask: url(#mask);
+}
+
+.video-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  overflow: hidden;
+}
+
+video {
+  min-height: 100%;
+  min-width: 100%;
+  height: 150%;
+  width: 150%;
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  transform: translate(-50%, -50%);
+}
+
+.trailer canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.trailer .btn {
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  z-index: 10;
+  cursor: pointer;
+}

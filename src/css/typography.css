@@ -1,0 +1,17 @@
+body {
+  font-size: var(--fontRegular);
+  font-family: var(--font);
+  font-weight: var(--fontWeightRegular);
+
+  @media (--only-medium-screen) {
+    font-size: var(--fontMedium);
+  }
+}
+
+h1,
+.h1-like {
+  font-size: var(--fontBig);
+  font-family: var(--fontSerif);
+  font-weight: var(--fontWeightBold);
+  margin: 0 0 1rem;
+}
