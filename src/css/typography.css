@@ -7,11 +7,3 @@ body {
     font-size: var(--fontMedium);
   }
 }
-
-h1,
-.h1-like {
-  font-size: var(--fontBig);
-  font-family: var(--fontSerif);
-  font-weight: var(--fontWeightBold);
-  margin: 0 0 1rem;
-}

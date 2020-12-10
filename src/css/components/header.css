@@ -1,0 +1,34 @@
+.header {
+  margin: 6rem 10rem;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font);
+  font-weight: 300;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.trailer .header {
+  position: absolute;
+  width: 80vw;
+  z-index: 10;
+}
+
+.info .header {
+  position: fixed;
+  width: 80vw;
+  z-index: 10;
+}
+
+.btn__back {
+  display: flex;
+  align-items: center;
+}
+
+.header svg {
+  width: 25px;
+  height: 25px;
+  margin-right: 1.5rem;
+}

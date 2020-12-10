@@ -15,6 +15,7 @@ module.exports = (env, { mode }) => {
       index: "./src/index.js",
       overview: "./src/overview.js",
       detail: "./src/detail.js",
+      info: "./src/detail.js",
     },
     devServer: {
       overlay: true,
@@ -103,6 +104,11 @@ module.exports = (env, { mode }) => {
         template: "./src/detail.html",
         filename: "./detail.html",
         chunks: ["detail"],
+      }),
+      new HtmlWebPackPlugin({
+        template: "./src/info.html",
+        filename: "./info.html",
+        chunks: ["info"],
       }),
       new MiniCssExtractPlugin({
         filename: "style.[contenthash].css",

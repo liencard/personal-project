@@ -5,11 +5,11 @@ html {
 }
 
 /* stylelint-disable */
-*,
+/* *,
 *::before,
 *::after {
   box-sizing: inherit;
-}
+} */
 /* stylelint-enable */
 
 body {
@@ -21,4 +21,11 @@ body {
 a {
   color: white;
   text-decoration: none;
+}
+
+p,
+h1,
+h2 {
+  margin: 0;
+  padding: 0;
 }
