@@ -4,11 +4,13 @@ const postcssPresetEnv = require("postcss-preset-env");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const webpack = require("webpack");
 
+const path = require("path");
+const CopyPlugin = require("copy-webpack-plugin");
+
 module.exports = (env, { mode }) => {
   console.log(mode);
   return {
     output: {
-      path: `${__dirname}/public`,
       filename: "[name].[hash].js",
     },
     entry: {
@@ -20,6 +22,7 @@ module.exports = (env, { mode }) => {
     devServer: {
       overlay: true,
       hot: true,
+      contentBase: path.join(__dirname, "src"),
     },
     module: {
       rules: [
@@ -46,7 +49,7 @@ module.exports = (env, { mode }) => {
           use: {
             loader: "url-loader",
             options: {
-              limit: 1000,
+              limit: 5000,
               context: "./src",
               name: "[path][name].[ext]",
             },
@@ -79,7 +82,7 @@ module.exports = (env, { mode }) => {
         },
         {
           // here I match only IMAGE and BIN files under the gltf folder
-          test: /gltf.*\.(bin|png|jpe?g|gif|mp4)$/,
+          test: /gltf.*\.(bin|png|jpe?g|svg|gif|mp4)$/,
           // or use url-loader if you would like to embed images in the source gltf
           loader: "file-loader",
           options: {
@@ -114,6 +117,11 @@ module.exports = (env, { mode }) => {
         filename: "style.[contenthash].css",
       }),
       new OptimizeCSSAssetsPlugin(),
+      new CopyPlugin([
+        { from: "assets/**/*.mp4", context: "src" },
+        { from: "assets/**/*.svg", context: "src" },
+        { from: "assets/**/*.png", context: "src" }, //added to copy mp4 files to dist folder
+      ]),
       new webpack.HotModuleReplacementPlugin(),
     ],
   };
