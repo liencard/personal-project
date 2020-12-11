@@ -11,6 +11,7 @@ module.exports = (env, { mode }) => {
   console.log(mode);
   return {
     output: {
+      path: `${__dirname}/public`,
       filename: "[name].[hash].js",
     },
     entry: {
