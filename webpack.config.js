@@ -141,7 +141,8 @@ module.exports = (env, { mode }) => {
       new CopyPlugin([
         { from: "assets/**/*.mp4", context: "src" },
         { from: "assets/**/*.svg", context: "src" },
-        { from: "assets/**/*.png", context: "src" }, //added to copy mp4 files to dist folder
+        { from: "assets/**/*.png", context: "src" },
+        { from: "assets/**/*.jpg", context: "src" }, //added to copy mp4 files to dist folder
       ]),
       new webpack.HotModuleReplacementPlugin(),
     ],
