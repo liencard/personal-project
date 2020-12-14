@@ -25,3 +25,11 @@
   margin-right: 1.5rem;
   fill: white;
 }
+
+.icon__menu rect {
+  transition: 0.3s;
+}
+
+.icon__menu:hover rect {
+  fill: var(--colorLightBlue);
+}

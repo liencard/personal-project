@@ -9,6 +9,7 @@ const init = () => {
   const cursorWrapper = document.querySelector(".cursor-wrapper");
   const innerCursor = document.querySelector(".custom-cursor__inner");
   const outerCursor = document.querySelector(".custom-cursor__outer");
+  const selectCursor = document.querySelector(".cursor-select");
 
   // const cursorWrapperBox = cursorWrapper.getBoundingClientRect();
   // const innerCursorBox = innerCursor.getBoundingClientRect();
@@ -39,6 +40,7 @@ const init = () => {
 
   const mainNavHoverTween = gsap.to(outerCursor, 0.3, {
     backgroundColor: "#ffffff",
+    borderColor: "#ffffff",
     opacity: 0.3,
     width: fullCursorSize,
     height: fullCursorSize,
@@ -48,20 +50,19 @@ const init = () => {
 
   const handleMouseEnter = () => {
     enlargeCursorTween.play();
+    selectCursor.classList.add("custom-cursor__inner");
   };
 
   const handleMouseLeave = () => {
     enlargeCursorTween.reverse();
+    selectCursor.classList.remove("custom-cursor__inner");
   };
 
-  const listItems = document.querySelectorAll(".list__item");
+  const listItems = document.querySelectorAll(".movie__item");
   listItems.forEach((el) => {
     el.addEventListener("mouseenter", handleMouseEnter);
     el.addEventListener("mouseleave", handleMouseLeave);
   });
-
-  // const pswpContainer = document.querySelector(".pswp__container");
-  // pswpContainer.addEventListener("mouseenter", handleMouseEnter);
 
   const mainNavItems = document.querySelectorAll("svg");
   mainNavItems.forEach((el) => {
@@ -72,39 +73,6 @@ const init = () => {
       mainNavHoverTween.reverse();
     });
   });
-
-  const bumpCursorTween = gsap.to(outerCursor, 0.1, {
-    scale: 0.7,
-    paused: true,
-    onComplete: () => {
-      gsap.to(outerCursor, 0.2, {
-        scale: 1,
-        ease: easing,
-      });
-    },
-  });
-
-  const openGalleryActions = () => {
-    bumpCursorTween.play();
-    innerCursor.classList.add("is-closing");
-    cursorWrapper.classList.add("has-blend-mode");
-    //cursorWrapper.classList.remove("is-outside");
-  };
-
-  const closeGalleryactions = () => {
-    bumpCursorTween.play();
-    innerCursor.classList.remove("is-closing");
-    cursorWrapper.classList.remove("has-blend-mode");
-    setTimeout(() => {
-      const elementMouseIsOver = document.elementFromPoint(clientX, clientY);
-      if (!elementMouseIsOver.classList.contains("movie__poster")) {
-        enlargeCursorTween.reverse();
-      }
-    }, 400);
-  };
-
-  openGalleryActions();
-  //closeGalleryactions();
 };
 
 init();

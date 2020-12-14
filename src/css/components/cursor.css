@@ -30,8 +30,8 @@
 .custom-cursor__outer {
   width: 6px;
   height: 6px;
-  border: 2px solid white;
-  background: white;
+  border: 2px solid var(--colorLightBlue);
+  background: var(--colorLightBlue);
   border-radius: 50%;
 }
 
@@ -41,28 +41,18 @@
   height: 100%;
 }
 
-.custom-cursor__inner::before,
-.custom-cursor__inner::after {
-  content: "";
+.custom-cursor__inner::before {
+  content: url(../../assets/img/eyeball.svg);
   position: absolute;
-  width: 40%;
-  height: 1px;
-  background: white;
+  left: 50%;
+  top: 30%;
+  transform: translateX(-50%);
   transition: transform 0.1s linear;
 }
 
-.custom-cursor__inner::before {
-  left: 50%;
-  top: 50%;
-  transform: translateX(-50%);
-}
-
-.custom-cursor__inner::after {
-  left: 50%;
-  top: 50%;
-  transform: translateX(-50%) rotate(-90deg);
-}
-
-.is-closing::after {
+/* .is-closing::after {
+  content: "";
+  width: 0;
+  height: 0;
   transform: translateX(-50%) rotate(0deg);
-}
+} */

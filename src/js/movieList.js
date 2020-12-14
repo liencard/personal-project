@@ -63,9 +63,44 @@ const fadeInContent = (data) => {
 
 const moveGlobe = () => {
   gsap.from(".container", {
-    duration: 0.5,
+    duration: 0.3,
     x: -300,
   });
+};
+
+const animateList = () => {
+  const tl = gsap.timeline();
+  tl.addLabel("animateList");
+  // LIST
+  tl.from(".overview__title", {
+    duration: 0.5,
+    x: -500,
+    delay: 0.8,
+  });
+
+  tl.from(
+    ".movie__poster",
+    {
+      duration: 0.5,
+      scale: 0,
+      stagger: 0.2,
+      delay: 0.8,
+    },
+    "animateList"
+  );
+
+  tl.from(
+    ".movie__info",
+    {
+      duration: 0.5,
+      scale: 0,
+      x: 100,
+      opacity: 0,
+      stagger: 0.2,
+      delay: 0.8,
+    },
+    "animateList"
+  );
 };
 
 barba.init({
@@ -81,6 +116,7 @@ barba.init({
       async enter(data) {
         fadeInContent(data);
         showMovies();
+        animateList();
       },
       async afterEnter() {
         //

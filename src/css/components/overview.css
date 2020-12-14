@@ -16,13 +16,10 @@ body {
   width: 100%;
   height: 100%;
   position: absolute;
+  index: 900;
   top: 0;
   left: 0;
 }
-
-/* .content {
-  display: flex;
-} */
 
 .container {
   height: 100vh;
@@ -104,6 +101,14 @@ body {
   line-height: 1.1;
   margin: 0;
   padding: 0;
+  color: transparent;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: white;
+  transition: 0.3s;
+}
+
+.movie__item:hover .movie__title {
+  color: white;
 }
 
 .movie__country {
@@ -119,4 +124,12 @@ body {
   bottom: 5vh;
   right: 8vw;
   z-index: 999;
+}
+
+.icon__sound rect {
+  transition: 0.3s;
+}
+
+.icon__sound:hover rect {
+  fill: var(--colorLightBlue);
 }

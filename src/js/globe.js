@@ -178,11 +178,7 @@ const findClickedMovie = (intersectData) => {
 
   autorun(() => {
     console.log("auto run - globe");
-    //console.log(currentMovie);
-    //console.log(clickedMovie);
   });
-
-  //setActiveMovie(clickedMovie);
 };
 
 const onClickIntro = () => {
@@ -217,7 +213,7 @@ const createMarkers = () => {
       color: 0x0bb4fa,
     });
     marker = new THREE.Mesh(
-      new THREE.SphereBufferGeometry(0.1, 32, 32),
+      new THREE.SphereBufferGeometry(0.05, 32, 32),
       material
     );
     marker.name = "marker";

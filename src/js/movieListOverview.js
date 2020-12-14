@@ -70,11 +70,46 @@ const animateList = () => {
   );
 
   tl.from(
-    ".movie__item",
+    ".movie__poster",
     {
-      duration: 1,
-      x: -500,
+      duration: 0.5,
+      scale: 0,
       stagger: 0.2,
+      delay: 0.4,
+    },
+    "animateList"
+  );
+
+  tl.from(
+    ".movie__info",
+    {
+      duration: 0.5,
+      scale: 0,
+      x: 100,
+      opacity: 0,
+      stagger: 0.2,
+      delay: 0.4,
+    },
+    "animateList"
+  );
+
+  tl.from(
+    ".icon__menu",
+    {
+      duration: 0.2,
+      scale: 0,
+      opacity: 0,
+      delay: 0.4,
+    },
+    "animateList"
+  );
+
+  tl.from(
+    ".icon__sound",
+    {
+      duration: 0.2,
+      scale: 0,
+      opacity: 0,
       delay: 0.4,
     },
     "animateList"
