@@ -18,11 +18,11 @@ const makeListItem = (movie) => {
   $li.addEventListener(`click`, handleClickList);
   $li.dataset.id = movie.id;
   $li.innerHTML = `
-      <a class="list__itemLink" href="./trailer.html">
+      <a class="list__itemLink" href="${movie.pagelink}">
         <img class="movie__poster" src="./assets/img/${movie.poster}" width="154px" height="238px" alt="movies poster ${movie.title}">
         <div class="movie__info">
             <p class="movie__title">${movie.title}</p>
-            <p class="movie__country">${movie.country}</p>
+            <p class="movie__country">${movie.country} <span class="movie__status">${movie.status}</span> </p>
         </div>
       </a>
     `;
@@ -49,11 +49,13 @@ const handleClickList = (e) => {
     console.log(currentMovie);
   });
 
-  goToDetailPage();
+  if (clickedMovie.id === 1) {
+    goToDetailPage(clickedMovie);
+  }
 };
 
-const goToDetailPage = () => {
-  window.location.href = "trailer.html";
+const goToDetailPage = (movie) => {
+  window.location.href = `${movie.pagelink}`;
 };
 
 const animateList = () => {

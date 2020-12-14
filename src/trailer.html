@@ -11,8 +11,8 @@
     <title>Parasite | Worldmovies</title>
   </head>
 
-  <body class="trailer" data-barba="wrapper">
-    <div data-scroll-container>
+  <body class="trailer gradient-bg" data-barba="wrapper">
+    <div class="purple-bg" data-scroll-container>
       <section
         class="trailer-content"
         data-barba="container"
@@ -59,7 +59,7 @@
             <rect x="7.00024" y="14" width="19" height="2" fill="white" />
           </svg>
         </header>
-        <div class="container">
+        <div class="trailer-container">
           <div class="line"></div>
           <!-- SVG -->
           <div class="svg-container">
@@ -69,6 +69,7 @@
               width="1920px"
               height="1080px"
               preserveAspectRatio="xMidYMid slice"
+              class="svg-mask"
             >
               <defs>
                 <!-- Mask -->
@@ -101,7 +102,7 @@
                 type="video/mp4"
               />
             </video>
-            <h1 class="movie__title">Parasite</h1>
+            <h1 class="movie__title-trailer">Parasite</h1>
           </div>
           <a href="./detail.html" class="btn btn__detail">
             <img
@@ -114,11 +115,44 @@
         </div>
       </section>
     </div>
+    <!-- SOUND TOGGLE -->
+    <svg
+      class="icon__sound"
+      width="16"
+      height="20"
+      viewBox="0 0 16 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect
+        x="15.5742"
+        y="9"
+        width="10"
+        height="2.52"
+        transform="rotate(90 15.5742 9)"
+        fill="white"
+      />
+      <rect
+        x="8.85352"
+        width="19.2"
+        height="2.52"
+        transform="rotate(90 8.85352 0)"
+        fill="white"
+      />
+      <rect
+        x="2"
+        y="5"
+        width="14.4762"
+        height="2"
+        transform="rotate(90 2 5)"
+        fill="white"
+      />
+    </svg>
 
     <!-- CURSOR -->
     <div class="cursor-wrapper">
       <div class="custom-cursor custom-cursor__outer">
-        <div class="custom-cursor custom-cursor__inner"></div>
+        <div class="custom-cursor cursor-select"></div>
       </div>
     </div>
   </body>

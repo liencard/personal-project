@@ -11,10 +11,6 @@ const init = () => {
   const outerCursor = document.querySelector(".custom-cursor__outer");
   const selectCursor = document.querySelector(".cursor-select");
 
-  // const cursorWrapperBox = cursorWrapper.getBoundingClientRect();
-  // const innerCursorBox = innerCursor.getBoundingClientRect();
-  // const outerCursorBox = outerCursor.getBoundingClientRect();
-
   document.addEventListener("mousemove", (e) => {
     clientX = e.clientX;
     clientY = e.clientY;

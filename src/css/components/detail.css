@@ -49,6 +49,26 @@
   font-size: 1.6rem;
 }
 
+.synopsis__link p {
+  text-transform: uppercase;
+  color: var(--colorLightBlue);
+  font-weight: 700;
+  opacity: 0;
+  transition: 4s;
+  transform: translateX(-1rem);
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.synopsis__link:hover p {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.synopsis__link a {
+  font-size: 3rem;
+  line-height: 1.3;
+}
+
 /* CAST */
 
 .cast {

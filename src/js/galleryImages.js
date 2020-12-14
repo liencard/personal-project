@@ -65,7 +65,7 @@ import stageShader from "./shaders/stageFragment.glsl";
   }
 
   // Get canvas view
-  const view = document.querySelector(".view");
+  const view = document.querySelector(".images-canvas");
   // Loaded resources will be here
   const resources = PIXI.Loader.shared.resources;
   // Target for pointer. If down, value is 1, else value is 0

@@ -17,11 +17,11 @@ const makeListItem = (movie) => {
   $li.addEventListener(`click`, handleClickList);
   $li.dataset.id = movie.id;
   $li.innerHTML = `
-      <a class="list__itemLink" href="./trailer.html">
+      <a class="list__itemLink" href="${movie.pagelink}">
         <img class="movie__poster" src="./assets/img/${movie.poster}" width="154px" height="238px" alt="movies poster ${movie.title}">
         <div class="movie__info">
             <p class="movie__title">${movie.title}</p>
-            <p class="movie__country">${movie.country}</p>
+            <p class="movie__country">${movie.country}  <span class="movie__status">${movie.status}</span> </p>
         </div>
       </a>
     `;
@@ -49,14 +49,14 @@ const handleClickList = (e) => {
   });
 };
 
-const fadeOutContent = (data) => {
-  gsap.to(data.current.container, {
+const fadeOutContent = (container) => {
+  gsap.to(container, {
     opacity: 0,
   });
 };
 
-const fadeInContent = (data) => {
-  gsap.from(data.current.container, {
+const fadeInContent = (container) => {
+  gsap.from(container, {
     opacity: 0,
   });
 };
@@ -103,23 +103,58 @@ const animateList = () => {
   );
 };
 
+const animateLine = () => {
+  console.log("animate line test");
+  const tl = gsap.timeline();
+  tl.addLabel("topAndBottom");
+
+  tl.from(".line", 0.75, { scaleX: 0, transformOrigin: "center" });
+  tl.to(".line", 0.01, { opacity: 0 });
+
+  tl.to(
+    ".top",
+    {
+      scaleY: 0,
+      transformOrigin: "top top",
+      duration: 1.5,
+      ease: "power3.in",
+    },
+    "topAndBottom",
+    "+=.5"
+  );
+
+  tl.to(
+    ".bottom",
+    {
+      scaleY: 0,
+      transformOrigin: "bottom bottom",
+      duration: 1.5,
+      ease: "power3.in",
+    },
+    "topAndBottom",
+    "+=.5"
+  );
+};
+
 barba.init({
   sync: true,
-
   transitions: [
     {
-      name: "home",
-      async leave(data) {
-        fadeOutContent(data);
+      name: "to-overview",
+      from: {
+        namespace: ["intro"],
+      },
+      to: {
+        namespace: ["overview"],
+      },
+      leave: ({ current }) => {
+        fadeOutContent(current.container);
         moveGlobe;
       },
-      async enter(data) {
-        fadeInContent(data);
+      enter: ({ next }) => {
+        fadeInContent(next.container);
         showMovies();
         animateList();
-      },
-      async afterEnter() {
-        //
       },
     },
   ],

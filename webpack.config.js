@@ -137,12 +137,12 @@ module.exports = (env, { mode }) => {
         filename: "style.[contenthash].css",
       }),
       new OptimizeCSSAssetsPlugin(),
-      new FaviconsWebpackPlugin("./favicon.png"), // svg works too!
+      new FaviconsWebpackPlugin("./favicon.png"),
       new CopyPlugin([
         { from: "assets/**/*.mp4", context: "src" },
         { from: "assets/**/*.svg", context: "src" },
         { from: "assets/**/*.png", context: "src" },
-        { from: "assets/**/*.jpg", context: "src" }, //added to copy mp4 files to dist folder
+        { from: "assets/**/*.jpg", context: "src" },
       ]),
       new webpack.HotModuleReplacementPlugin(),
     ],

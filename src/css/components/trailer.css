@@ -2,7 +2,7 @@
   background-color: #29245e;
 }
 
-.trailer .movie__title {
+.movie__title-trailer {
   color: white;
   opacity: 0.3;
   font-family: "Nunito Sans", sans-serif;
@@ -16,7 +16,7 @@
   left: 10%;
 }
 
-.trailer .container {
+.trailer-container {
   height: 100vh;
   width: 100%;
   position: relative;
@@ -46,18 +46,18 @@
   z-index: 1;
 }
 
-.trailer svg {
+.svg-mask {
   width: 100%;
   height: 100%;
   overflow: visible;
   display: block;
 }
 
-.trailer svg mask rect {
+.svg-mask mask rect {
   fill: white;
 }
 
-.trailer svg > rect {
+.svg-mask > rect {
   fill: #29245e;
   -webkit-mask: url(#mask);
   mask: url(#mask);
@@ -83,7 +83,7 @@ video {
   transform: translate(-50%, -50%);
 }
 
-.trailer canvas {
+.trailer-container canvas {
   position: absolute;
   top: 0;
   left: 0;
