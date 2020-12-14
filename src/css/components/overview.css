@@ -24,7 +24,7 @@ body {
   display: flex;
 } */
 
-#container {
+.container {
   height: 100vh;
   width: 100vw;
   z-index: 1;
@@ -57,20 +57,24 @@ body {
   margin-bottom: 7rem;
 }
 
-.list {
+.movieList {
   overflow: scroll;
   height: 72.5vh;
   padding: 0;
   width: 100%;
 }
 
+.movie__item {
+  list-style: none;
+}
+
 /* Hide scrollbar for Chrome, Safari and Opera */
-.list::-webkit-scrollbar {
+.movieList::-webkit-scrollbar {
   display: none;
 }
 
 /* Firefox */
-.list {
+.movieList {
   scrollbar-width: none; /* Firefox */
 }
 

@@ -104,7 +104,7 @@ const init = () => {
   };
 
   openGalleryActions();
-  closeGalleryactions();
+  //closeGalleryactions();
 };
 
 init();

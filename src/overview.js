@@ -1,5 +1,5 @@
 import "./style.css";
-import "./js/movieList";
+import "./js/movieListOverview";
 import "./js/globe";
 
 //import "./js/cursor";

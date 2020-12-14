@@ -2,7 +2,7 @@
   background: linear-gradient(107.07deg, #29469a 0%, #29245e 100%);
 }
 
-.content {
+.index .content {
   position: relative;
   z-index: 1000;
   display: flex;

@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { WEBGL } from "./scripts/webgl";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { fontHelvetiker } from "three/examples/fonts/helvetiker_bold.typeface.json";
 import { gsap } from "gsap";
 import { autorun } from "mobx";
 
@@ -17,7 +18,9 @@ let raycaster,
 let markers = [];
 
 if (WEBGL.isWebGLAvailable()) {
-  container = document.getElementById("container");
+  container = document.createElement(`div`);
+  container.classList.add(`container`);
+  document.body.appendChild(container);
 
   //Create scene
   scene = new THREE.Scene();
@@ -76,7 +79,7 @@ const animate = () => {
   controls.update();
 };
 
-const raycastClick = (e) => {
+const onMouseClick = (e) => {
   mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
   mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 
@@ -120,7 +123,7 @@ const raycastClick = (e) => {
 
     // LIST
     tl.to(
-      ".list__item",
+      ".movie__item",
       {
         duration: 1,
         x: -500,
@@ -144,30 +147,26 @@ const raycastClick = (e) => {
   }
 };
 
-const raycastHover = (e) => {
+const goToDetailPage = () => {
+  window.location.href = "trailer.html";
+};
+
+const onMouseMove = (e) => {
   mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
   mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 
   raycaster.setFromCamera(mouse, camera);
   const intersects = raycaster.intersectObjects(scene.children);
 
-  console.log("test raycast hover");
-
   for (let i = 0; i < intersects.length; i++) {
     findClickedMovie(intersects[i]);
   }
-};
-
-const goToDetailPage = () => {
-  window.location.href = "detail.html";
 };
 
 const findClickedMovie = (intersectData) => {
   const clickedMovie = data.movies.find(
     (movie) => movie.posX === intersectData.object.position.x
   );
-
-  console.log(clickedMovie);
 
   // clickedMovie => store/model opslaan zodat ik dit in een andere file kan oproepen/gekend
   currentMovie.setMovie({
@@ -179,8 +178,11 @@ const findClickedMovie = (intersectData) => {
 
   autorun(() => {
     console.log("auto run - globe");
-    console.log(currentMovie);
+    //console.log(currentMovie);
+    //console.log(clickedMovie);
   });
+
+  //setActiveMovie(clickedMovie);
 };
 
 const onClickIntro = () => {
@@ -207,26 +209,9 @@ const onClickIntro = () => {
     { duration: 1.5, ease: "power3.in", x: 1.3, y: 1.3, z: 1.3 },
     "moveGlobe"
   );
-
-  // LIST ANIMATION
-  // gsap.to(".content", { duration: 2, x: 0, y: -600, z: 0 });
-
-  // document.querySelector(".overview").style.display = "block";
-
-  // gsap.from(".overview__title", { duration: 2, opacity: 0, delay: 2 });
-
-  // gsap.from(".list__item", {
-  //   duration: 0.5,
-  //   x: -300,
-  //   opacity: 0,
-  //   delay: 2,
-  //   stagger: 0.2,
-  //   force3D: true,
-  // });
 };
 
 const createMarkers = () => {
-  console.log(data.movies);
   data.movies.forEach((movie) => {
     let material = new THREE.MeshPhongMaterial({
       color: 0x0bb4fa,
@@ -240,7 +225,6 @@ const createMarkers = () => {
     console.log(marker);
     marker.position.set(movie.posX, movie.posY, movie.posZ);
     markers.push(marker);
-    console.log(markers);
   });
 };
 
@@ -250,11 +234,15 @@ const loadGlobe = () => {
   loader.load(gltfPath, (gltf) => {
     globe = gltf.scene;
     globe.name = "globe";
-    globe.scale.set(5, 5, 5);
-    globe.position.set(-1, -5.4, 0);
 
-    //globe.position.set(0, -0.4, 0);
-    //globe.scale.set(1.4, 1.4, 1.4);
+    if (window.location.pathname === "/") {
+      globe.scale.set(5, 5, 5);
+      globe.position.set(-1, -5.4, 0);
+    } else {
+      globe.position.set(0, -0.4, 0);
+      globe.scale.set(1.4, 1.4, 1.4);
+      createMarkers();
+    }
 
     gltf.scene.traverse(function (child) {
       if (child.isMesh) {
@@ -271,11 +259,15 @@ const init = () => {
   loadGlobe();
 
   raycaster = new THREE.Raycaster();
-  container.addEventListener("click", raycastClick, false);
-  container.addEventListener("mouseover", raycastHover, false);
+  mouse = new THREE.Vector2();
+  container.addEventListener("click", onMouseClick, false);
+  container.addEventListener("mousemove", onMouseMove, false);
+  //container.addEventListener("mouseover", raycastHover, false);
 
-  const button = document.querySelector(".btn__intro");
-  button.addEventListener("click", onClickIntro, false);
+  if (window.location.pathname === "/") {
+    const button = document.querySelector(".btn__intro");
+    button.addEventListener("click", onClickIntro, false);
+  }
 
   render();
   animate();

@@ -1,15 +1,3 @@
-.spaced {
-  padding: calc(var(--spacerBig) / 1.5);
-
-  @media (--only-small-screen) {
-    padding: var(--spacerBig);
-  }
-}
-
-.highlight {
-  background-color: var(--colorMain);
-}
-
 .hide {
   display: none;
 }

@@ -1,21 +1,18 @@
 import * as THREE from "three";
-import { WEBGL } from "./scripts/webgl";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
 gsap.registerPlugin(ScrollTrigger);
-//import gltfPath from "../assets/model/house/scene.gltf";
-import gltfPath from "../assets/model/parasite3.gltf";
+//import gltfPath from "../assets/model/parasite-white.gltf";
+import gltfPath from "../assets/model/house.gltf";
 
 let container;
-let camera;
-let renderer;
-let scene;
+let camera, renderer, scene;
 let model;
+let house_anim = gsap.timeline();
 
-const init = () => {
-  container = document.querySelector(".scene-one");
+const creatScene = () => {
+  container = document.querySelector(".scene-house");
 
   //Create scene
   scene = new THREE.Scene();
@@ -48,14 +45,21 @@ const init = () => {
   spotLight.castShadow = true;
   scene.add(spotLight);
 
-  var spotLight2 = new THREE.SpotLight(0xffffff);
-  spotLight2.position.set(-200, 50, -200);
-  scene.add(spotLight2);
+  // var spotLight2 = new THREE.SpotLight(0xffffff);
+  // spotLight2.position.set(-200, 50, -200);
+  // scene.add(spotLight2);
 
-  function render() {
-    renderer.render(scene, camera);
-  }
+  scene.rotation.set(0.2, -2, 0);
+  camera.position.set(0.2, 0.3, 2.5);
 
+  loadModel();
+  window.addEventListener("resize", onWindowResize);
+
+  render();
+  animate();
+};
+
+const loadModel = () => {
   // ADD C4D model
   const loader = new GLTFLoader();
 
@@ -64,22 +68,19 @@ const init = () => {
   loader.load(gltfPath, (gltf) => {
     model = gltf.scene;
     model.name = "house";
-
     model.position.set(0, 0, 0);
     model.scale.set(0.0005, 0.0005, 0.0005);
 
-    // gltf.scene.traverse(function (child) {
-    //   if (child.isMesh) {
-    //     child.material.emissive = child.material.color;
-    //     child.material.emissiveMap = child.material.map;
-    //   }
-    // });
+    gltf.scene.traverse(function (child) {
+      if (child.isMesh) {
+        child.material.emissive = child.material.color;
+        child.material.emissiveMap = child.material.map;
+      }
+    });
 
     // Add gltf model to scene
     scene.add(model);
   });
-
-  animate();
 };
 
 const animate = () => {
@@ -87,20 +88,15 @@ const animate = () => {
   renderer.render(scene, camera);
 };
 
-init();
+const render = () => {
+  renderer.render(scene, camera);
+};
 
-function onWindowResize() {
+const onWindowResize = () => {
   camera.aspect = container.clientWidth / container.clientHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(container.clientWidth, container.clientHeight);
-}
-
-window.addEventListener("resize", onWindowResize);
-
-gsap.registerPlugin(ScrollTrigger);
-
-scene.rotation.set(0, 1.5, 0);
-camera.position.set(0.2, 0.5, 3);
+};
 
 ScrollTrigger.defaults({
   immediateRender: false,
@@ -108,12 +104,15 @@ ScrollTrigger.defaults({
   scrub: true,
 });
 
-let house_anim = gsap.timeline();
+const init = () => {
+  creatScene();
+};
 
-// Full Height
+init();
 
-gsap.to(".one-wrapper", {
-  x: 700,
+// ANIMATE TITLE
+gsap.to(".detail__title", {
+  x: -700,
   scrollTrigger: {
     trigger: ".section-two",
     start: "top bottom",
@@ -121,26 +120,89 @@ gsap.to(".one-wrapper", {
   },
 });
 
-gsap.from(".two-wrapper", {
-  x: -600,
+// TEXT BLOKKEN
+// TEXT - ONE
+gsap.from(".one-wrapper", {
+  x: -700,
+  opacity: 0,
+  duration: 2,
   scrollTrigger: {
     trigger: ".section-two",
+    start: "top bottom",
+    end: "top center",
+  },
+});
+
+gsap.to(".one-wrapper", {
+  x: -500,
+  opacity: 0,
+  scrollTrigger: {
+    trigger: ".section-two",
+    start: "top top",
+    end: "top center",
+  },
+});
+
+// TEXT - TWO
+gsap.from(".two-wrapper", {
+  x: 800,
+  opacity: 0,
+  duration: 2,
+  scrollTrigger: {
+    trigger: ".section-three",
+    start: "top bottom",
+    end: "top center",
+  },
+});
+
+gsap.to(".two-wrapper", {
+  x: 800,
+  opacity: 0,
+  scrollTrigger: {
+    trigger: ".section-three",
+    start: "top top",
+    //end: "top top",
+  },
+});
+
+// TEXT - THREE
+gsap.from(".three-wrapper", {
+  x: -800,
+  opacity: 0,
+  duration: 2,
+  scrollTrigger: {
+    trigger: ".section-four",
     start: "top center",
     end: "top top",
   },
 });
 
-// gsap.from(".two-wrapper", {
-//   x: -600,
-//   scrollTrigger: {
-//     trigger: ".section-three",
-//     start: "top bottom",
-//     end: "top center",
-//   },
-// });
+// TEXT - FOUR
+gsap.from(".four-wrapper", {
+  y: 800,
+  opacity: 0,
+  duration: 2,
+  scrollTrigger: {
+    trigger: ".section-five",
+    start: "top center",
+    end: "top top",
+  },
+});
 
+// ANIMATE LAST TITLE
+gsap.from(".endnote", {
+  x: -700,
+  scrollTrigger: {
+    trigger: ".section-six",
+    start: "top bottom",
+    end: "top center",
+  },
+});
+
+// HOUSE ANIMATION
+// Section 2
 house_anim.to(scene.rotation, {
-  y: 4.79,
+  y: -3,
   scrollTrigger: {
     trigger: ".section-two",
 
@@ -149,10 +211,9 @@ house_anim.to(scene.rotation, {
   },
 });
 
-// Slide 2
-
 house_anim.to(camera.position, {
-  x: -0.1,
+  x: -0.7,
+  z: 3,
   scrollTrigger: {
     trigger: ".section-two",
 
@@ -161,10 +222,9 @@ house_anim.to(camera.position, {
   },
 });
 
-// Slide 3
-
-house_anim.to(scene.rotation, {
-  z: -1.4,
+// Section 3
+house_anim.to(camera.position, {
+  x: 0.8,
   scrollTrigger: {
     trigger: ".section-three",
 
@@ -173,11 +233,10 @@ house_anim.to(scene.rotation, {
   },
 });
 
-// // Slide 4
-
+// Section 3
 house_anim.to(scene.rotation, {
-  z: 0.02,
-  y: 3.1,
+  z: -0.2,
+  y: -2.1,
   scrollTrigger: {
     trigger: ".section-four",
 
@@ -187,11 +246,33 @@ house_anim.to(scene.rotation, {
 });
 
 house_anim.to(camera.position, {
-  x: 0.16,
+  x: -0.5,
   scrollTrigger: {
     trigger: ".section-four",
 
+    start: "top center",
+    end: "bottom bottom",
+  },
+});
+
+// Section 5
+house_anim.to(scene.rotation, {
+  z: 0.2,
+  y: -1.5,
+  scrollTrigger: {
+    trigger: ".section-five",
+
+    start: "top bottom",
+    end: "top top",
+  },
+});
+
+house_anim.to(camera.position, {
+  x: -3,
+  scrollTrigger: {
+    trigger: ".section-five",
+
     start: "top top",
-    end: "bottom top",
+    end: "bottom center",
   },
 });

@@ -13,11 +13,11 @@ const showMovies = () => {
 
 const makeListItem = (movie) => {
   const $li = document.createElement(`li`);
-  $li.classList.add(`list__item`);
+  $li.classList.add(`movie__item`);
   $li.addEventListener(`click`, handleClickList);
   $li.dataset.id = movie.id;
   $li.innerHTML = `
-      <a class="list__itemLink" href="./src/detail.html">
+      <a class="list__itemLink" href="./trailer.html">
         <img class="movie__poster" src="./assets/img/${movie.poster}" width="154px" height="238px" alt="movies poster ${movie.title}">
         <div class="movie__info">
             <p class="movie__title">${movie.title}</p>
@@ -25,13 +25,13 @@ const makeListItem = (movie) => {
         </div>
       </a>
     `;
-  document.querySelector(`.list`).appendChild($li);
+  document.querySelector(`.movieList`).appendChild($li);
 };
 
 const handleClickList = (e) => {
   e.preventDefault();
   console.log(e);
-  const clickedMovie = movies.find(
+  const clickedMovie = data.movies.find(
     (movie) => movie.id === parseInt(e.currentTarget.dataset.id)
   );
 
@@ -62,7 +62,7 @@ const fadeInContent = (data) => {
 };
 
 const moveGlobe = () => {
-  gsap.from("#container", {
+  gsap.from(".container", {
     duration: 0.5,
     x: -300,
   });

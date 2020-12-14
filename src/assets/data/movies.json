@@ -41,6 +41,34 @@
       "posX":-0.65,
       "posY": 0.4,
       "posZ": 0.42
+    },
+    {
+      "id": 4,
+      "title": "A Seperation",
+      "country": "Iran",
+      "lat": 19.45,
+      "long": -99.12,
+      "poster": "seperation-poster.png",
+      "rotX": -2,
+      "rotY": 0,
+      "rotZ": 5,
+      "posX":-0.60,
+      "posY": 0.5,
+      "posZ": 0.35
+    },
+    {
+      "id": 5,
+      "title": "Force Majeure",
+      "country": "Sweden",
+      "lat": 19.45,
+      "long": -99.12,
+      "poster": "force-poster.png",
+      "rotX": -2,
+      "rotY": 0,
+      "rotZ": 5,
+      "posX":0.85,
+      "posY": 0.7,
+      "posZ": 0.05
     }
   ]
 }

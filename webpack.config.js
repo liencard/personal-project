@@ -2,6 +2,7 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const postcssPresetEnv = require("postcss-preset-env");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 const webpack = require("webpack");
 
 const path = require("path");
@@ -17,8 +18,10 @@ module.exports = (env, { mode }) => {
     entry: {
       index: "./src/index.js",
       overview: "./src/overview.js",
+      trailer: "./src/detail.js",
       detail: "./src/detail.js",
-      info: "./src/detail.js",
+      synopsis: "./src/synopsis.js",
+      gallery: "./src/gallery.js",
     },
     devServer: {
       overlay: true,
@@ -76,6 +79,11 @@ module.exports = (env, { mode }) => {
             },
           ],
         },
+        // match all .glsl files
+        {
+          test: /\.glsl$/,
+          loader: "webpack-glsl-loader",
+        },
         {
           // match all .gltf files
           test: /\.(gltf)$/,
@@ -105,19 +113,31 @@ module.exports = (env, { mode }) => {
         chunks: ["overview"],
       }),
       new HtmlWebPackPlugin({
+        template: "./src/trailer.html",
+        filename: "./trailer.html",
+        chunks: ["trailer"],
+      }),
+      new HtmlWebPackPlugin({
         template: "./src/detail.html",
         filename: "./detail.html",
         chunks: ["detail"],
       }),
       new HtmlWebPackPlugin({
-        template: "./src/info.html",
-        filename: "./info.html",
-        chunks: ["info"],
+        template: "./src/synopsis.html",
+        filename: "./synopsis.html",
+        chunks: ["synopsis"],
       }),
+      new HtmlWebPackPlugin({
+        template: "./src/gallery.html",
+        filename: "./gallery.html",
+        chunks: ["gallery"],
+      }),
+
       new MiniCssExtractPlugin({
         filename: "style.[contenthash].css",
       }),
       new OptimizeCSSAssetsPlugin(),
+      new FaviconsWebpackPlugin("./favicon.png"), // svg works too!
       new CopyPlugin([
         { from: "assets/**/*.mp4", context: "src" },
         { from: "assets/**/*.svg", context: "src" },

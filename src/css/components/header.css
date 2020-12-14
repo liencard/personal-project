@@ -1,5 +1,5 @@
 .header {
-  margin: 6rem 10rem;
+  margin: 6rem 7vw;
   display: flex;
   justify-content: space-between;
   font-family: var(--font);
@@ -8,17 +8,9 @@
   line-height: 2.4rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-}
 
-.trailer .header {
   position: absolute;
-  width: 80vw;
-  z-index: 10;
-}
-
-.info .header {
-  position: fixed;
-  width: 80vw;
+  width: 85%;
   z-index: 10;
 }
 
@@ -31,4 +23,5 @@
   width: 25px;
   height: 25px;
   margin-right: 1.5rem;
+  fill: white;
 }
