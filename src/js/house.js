@@ -3,8 +3,8 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
-//import gltfPath from "../assets/model/parasite-white.gltf";
-import gltfPath from "../assets/model/house.gltf";
+import gltfPath from "../assets/model/parasite-white.gltf";
+//import gltfPath from "../assets/model/house.gltf";
 
 let container;
 let camera, renderer, scene;
