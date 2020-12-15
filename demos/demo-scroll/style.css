@@ -1,0 +1,41 @@
+body {
+	width: 100vw;
+	height: 100%;
+	margin: 0;
+
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.scene.one {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 999;
+}
+
+section {
+	width: 100%;
+	height: 100vh;	
+	position: relative;
+}
+
+.section-one {
+	background-color: lightgrey;
+}
+
+.section-two {
+	background-color: lightgrey;
+}
+
+.section-three {
+	background-color: lightgrey;
+}
+
+.section-four {
+	background-color: lightgrey;
+}
+
+.section-five {
+	background-color: lightgrey;
+}
