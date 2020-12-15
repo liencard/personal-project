@@ -24,13 +24,7 @@ Ik ben enorm geinteresseerd om te leren hoe ik allerei animaties om kan zetten i
 
 - Week 4 & 5: Finaal eindproject: interactieve website rond wereld films, met de opgedane kennis van de voorgaande weken
 
-<<<<<<< HEAD
 
 ## Blog URL
 
-=======
-
-## Blog URL
-
-> > > > > > > fe6dc7a6f9da3457e5d5cdf389d15c044ccd4abb
-> > > > > > > https://personalprojectliencardoen.wordpress.com/
+https://personalprojectliencardoen.wordpress.com/
