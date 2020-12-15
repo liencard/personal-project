@@ -1,5 +1,6 @@
 import currentMovie from "./model/currentMovie.js";
 import data from "./../assets/data/movies.json";
+import { Howl, Howler } from "howler";
 
 import { gsap } from "gsap";
 import { autorun } from "mobx";
@@ -16,6 +17,7 @@ const makeListItem = (movie) => {
   const $li = document.createElement(`li`);
   $li.classList.add(`movie__item`);
   $li.addEventListener(`click`, handleClickList);
+  $li.addEventListener(`mouseenter`, handleMouseOver);
   $li.dataset.id = movie.id;
   $li.innerHTML = `
       <a class="list__itemLink" href="${movie.pagelink}">
@@ -27,6 +29,15 @@ const makeListItem = (movie) => {
       </a>
     `;
   document.querySelector(`.movieList`).appendChild($li);
+};
+
+const handleMouseOver = (e) => {
+  console.log("testlog");
+  const soundHover = new Howl({
+    src: ["./../assets/audio/hover.mp3"],
+    volume: 0.5,
+  });
+  soundHover.play();
 };
 
 const handleClickList = (e) => {

@@ -4,9 +4,11 @@ import "./js/cast/castImage";
 import "./js/cursor";
 import "./js/detailTextAnimation";
 import "./js/globe";
+//import "./js/audioToggle";
+import { Howl, Howler } from "howler";
+
 import currentMovie from "./js/model/currentMovie";
 import data from "./assets/data/movies.json";
-
 import { autorun } from "mobx";
 
 if (window.location.pathname === "/detail.html") {
@@ -198,6 +200,7 @@ const makeListItem = (movie) => {
   const $li = document.createElement(`li`);
   $li.classList.add(`movie__item`);
   $li.addEventListener(`click`, handleClickList);
+  $li.addEventListener(`mouseenter`, handleMouseOver);
   $li.dataset.id = movie.id;
   $li.innerHTML = `
       <a class="list__itemLink" href="${movie.pagelink}">
@@ -209,6 +212,15 @@ const makeListItem = (movie) => {
       </a>
     `;
   document.querySelector(`.movieList`).appendChild($li);
+};
+
+const handleMouseOver = (e) => {
+  console.log("testlog");
+  const soundHover = new Howl({
+    src: ["./../assets/audio/hover.mp3"],
+    volume: 0.5,
+  });
+  soundHover.play();
 };
 
 const handleClickList = (e) => {

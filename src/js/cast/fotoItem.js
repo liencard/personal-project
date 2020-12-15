@@ -5,43 +5,31 @@ import data from "./images.json";
 let images = [];
 images = data;
 
-// track the mouse position
 let mousepos = { x: 0, y: 0 };
-// cache the mouse position
 let mousePosCache = mousepos;
 let direction = {
   x: mousePosCache.x - mousepos.x,
   y: mousePosCache.y - mousepos.y,
 };
 
-// update mouse position when moving the mouse
 window.addEventListener("mousemove", (ev) => (mousepos = getMousePos(ev)));
 
 export default class FotoItem {
   constructor(el, inListPosition, animatableProperties) {
-    // el is the <a> with class "list__item"
     this.DOM = { el: el };
-    // position in the list
+
     this.inListPosition = inListPosition;
-    // list item properties that will animate as we move the mouse around the list
+
     this.animatableProperties = animatableProperties;
-    // the item text
+
     this.DOM.textInner = this.DOM.el.querySelector(".list__item-textinner");
-    // create the image structure
+
     this.layout();
-    // initialize some events
+
     this.initEvents();
   }
-  // create the image structure
-  // we want to add/append to the list item the following html:
-  // <div class="hover-reveal">
-  //   <div class="hover-reveal__inner" style="overflow: hidden;">
-  //     <div class="hover-reveal__img" style="background-image: url(pathToImage);">
-  //     </div>
-  //   </div>
-  // </div>
+
   layout() {
-    // this is the element that gets its position animated (and perhaps other properties like the rotation etc..)
     this.DOM.reveal = document.createElement("div");
     this.DOM.reveal.className = "hover-reveal";
     this.DOM.reveal.style.transformOrigin = "0% 0%";
@@ -95,7 +83,7 @@ export default class FotoItem {
     this.DOM.el.addEventListener("mouseenter", this.mouseenterFn);
     this.DOM.el.addEventListener("mouseleave", this.mouseleaveFn);
   }
-  // show the image element
+
   showImage() {
     // kill any current tweens
     gsap.killTweensOf(this.DOM.revealInner);
@@ -104,7 +92,6 @@ export default class FotoItem {
     this.tl = gsap
       .timeline({
         onStart: () => {
-          // show both image and its parent element
           this.DOM.reveal.style.opacity = this.DOM.revealInner.style.opacity = 1;
           // set a high z-index value so image appears on top of other elements
           gsap.set(this.DOM.el, { zIndex: images.length });

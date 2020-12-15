@@ -3,7 +3,8 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
-import gltfPath from "../assets/model/parasite-color.gltf";
+import gltfPath from "../assets/model/parasite.gltf";
+// credits: used this model as a working base, https://sketchfab.com/3d-models/parasite-house-17af0a201ff74a9f9d84da8d13266076
 
 let container;
 let camera, renderer, scene;
@@ -44,12 +45,11 @@ const creatScene = () => {
   spotLight.castShadow = true;
   scene.add(spotLight);
 
-  // var spotLight2 = new THREE.SpotLight(0xffffff);
-  // spotLight2.position.set(-200, 50, -200);
-  // scene.add(spotLight2);
-
   scene.rotation.set(0.2, -2, 0);
   camera.position.set(0.2, 0.3, 2.5);
+
+  //scene.rotation.set(0.2, -0.3, 0);
+  //camera.position.set(0.2, 0.3, 2.5);
 
   loadModel();
   window.addEventListener("resize", onWindowResize);

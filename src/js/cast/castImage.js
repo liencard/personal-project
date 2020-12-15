@@ -1,5 +1,6 @@
 import { gsap } from "gsap";
 import FotoItem from "./fotoItem";
+import { Howl, Howler } from "howler";
 
 const init = () => {
   const listItems = document.querySelectorAll(".list__item");
@@ -21,10 +22,18 @@ const init = () => {
   );
 
   // audio
-  //  listItems.forEach((item) => {
-  //    console.log(item);
-  //    item.addEventListener("mouseover", this.handlePlay);
-  //  });
+  listItems.forEach((item) => {
+    console.log(item);
+    item.addEventListener("mouseenter", handlePlay);
+  });
+};
+
+const handlePlay = (e) => {
+  const soundHover = new Howl({
+    src: ["./../../assets/audio/hover.mp3"],
+    volume: 0.5,
+  });
+  soundHover.play();
 };
 
 init();

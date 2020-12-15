@@ -2,9 +2,9 @@ import * as THREE from "three";
 import { WEBGL } from "./scripts/webgl";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { fontHelvetiker } from "three/examples/fonts/helvetiker_bold.typeface.json";
 import { gsap } from "gsap";
 import { autorun } from "mobx";
+import { Howl, Howler } from "howler";
 
 import data from "./../assets/data/movies.json";
 import currentMovie from "./model/currentMovie.js";
@@ -88,6 +88,12 @@ const onMouseClick = (e) => {
   console.log(intersects);
 
   for (let i = 0; i < intersects.length; i++) {
+    const soundGlobe = new Howl({
+      src: ["./../assets/audio/globe-whoosh.mp3"],
+      volume: 0.5,
+    });
+    soundGlobe.play();
+
     const tl = gsap.timeline();
     tl.addLabel("zoomGlobe");
     // GLOBE
@@ -203,6 +209,13 @@ const findClickedMovie = (intersectData) => {
 };
 
 const onClickIntro = () => {
+  const soundGlobe = new Howl({
+    src: ["./../assets/audio/globe-whoosh.mp3"],
+    volume: 0.5,
+  });
+
+  soundGlobe.play();
+
   const tl = gsap.timeline();
   tl.addLabel("moveGlobe");
 
@@ -273,6 +286,13 @@ const loadGlobe = () => {
 };
 
 const init = () => {
+  // let soundAtmosphere = new Howl({
+  //   src: ["./../assets/audio/atmosphere.mp3"],
+  //   volume: 0.5,
+  //   loop: true,
+  // });
+  // soundAtmosphere.play();
+
   loadGlobe();
 
   raycaster = new THREE.Raycaster();

@@ -128,17 +128,35 @@ body {
   color: var(--colorLightBlue);
 }
 
-.icon__sound {
+.audio-button {
   position: absolute;
   bottom: 5vh;
   right: 8vw;
   z-index: 999;
+  border: none;
+  background-color: transparent;
+}
+
+.icon__sound {
   width: 16px;
   height: 20px;
 }
 
 .icon__sound rect {
   transition: 0.3s;
+}
+
+.icon__sound-on rect {
+  width: 3px;
+  transform: scaleY(1);
+  transform-origin: bottom;
+}
+
+.icon__sound-off rect {
+  width: 3px;
+  height: 2px;
+  transform: scaleY(0);
+  transform-origin: bottom;
 }
 
 .icon__sound:hover rect {

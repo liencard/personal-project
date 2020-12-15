@@ -49,7 +49,7 @@ module.exports = (env, { mode }) => {
           ],
         },
         {
-          test: /\.(jpe?g|png|svg|webp|mp4)$/,
+          test: /\.(jpe?g|png|svg|webp|mp4|mp3)$/,
           use: {
             loader: "url-loader",
             options: {
@@ -143,6 +143,7 @@ module.exports = (env, { mode }) => {
         { from: "assets/**/*.svg", context: "src" },
         { from: "assets/**/*.png", context: "src" },
         { from: "assets/**/*.jpg", context: "src" },
+        { from: "assets/**/*.mp3", context: "src" },
       ]),
       new webpack.HotModuleReplacementPlugin(),
     ],

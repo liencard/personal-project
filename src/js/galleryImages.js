@@ -3,14 +3,17 @@ import * as PIXI from "pixi.js";
 import backgroundShader from "./shaders/backgroundFragment.glsl";
 import stageShader from "./shaders/stageFragment.glsl";
 
-(function () {
+import data from "./gallery.json";
+
+let imagesArray = [];
+imagesArray = data;
+
+console.log(imagesArray[0][0]);
+console.log(Math.floor(Math.random() * imagesArray.length));
+
+const gallery = () => {
   // Class to generate a random masonry layout, using a square grid as base
   class Grid {
-    // The constructor receives all the following parameters:
-    // - gridSize: The size (width and height) for smallest unit size
-    // - gridColumns: Number of columns for the grid (width = gridColumns * gridSize)
-    // - gridRows: Number of rows for the grid (height = gridRows * gridSize)
-    // - gridMin: Min width and height limits for rectangles (in grid units)
     constructor(gridSize, gridColumns, gridRows, gridMin) {
       this.gridSize = gridSize;
       this.gridColumns = gridColumns;
@@ -31,7 +34,6 @@ import stageShader from "./shaders/stageFragment.glsl";
         const cutSize = cutVertical ? "w" : "h";
         const cutAxis = cutVertical ? "x" : "y";
         if (cutSide > this.gridMin * 2) {
-          //const rect1Size = randomInRange(this.gridMin, cutSide - this.gridMin);
           const rect1Size = randomInRange(this.gridMin, this.gridMin);
 
           const rect1 = Object.assign({}, currentRect, {
@@ -64,13 +66,11 @@ import stageShader from "./shaders/stageFragment.glsl";
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  // Get canvas view
   const view = document.querySelector(".images-canvas");
   // Loaded resources will be here
   const resources = PIXI.Loader.shared.resources;
   // Target for pointer. If down, value is 1, else value is 0
   let pointerDownTarget = 0;
-  // Useful variables to keep track of the pointer
   let pointerStart = new PIXI.Point();
   let pointerDiffStart = new PIXI.Point();
   let width, height;
@@ -106,26 +106,18 @@ import stageShader from "./shaders/stageFragment.glsl";
 
   // Initialize the random grid layout
   function initGrid() {
-    // Getting columns
     gridColumnsCount = Math.ceil(width / gridSize);
-    // Getting rows
     gridRowsCount = Math.ceil(height / gridSize);
-    // Make the grid 5 times bigger than viewport
-    gridColumns = gridColumnsCount * 1.5;
-    gridRows = gridRowsCount * 1.4;
-    // Create a new Grid instance with our settings
+    gridColumns = gridColumnsCount * 4;
+    gridRows = gridRowsCount * 4;
     grid = new Grid(gridSize, gridColumns, gridRows, gridMin);
     // Calculate the center position for the grid in the viewport
     widthRest = Math.ceil(gridColumnsCount * gridSize - width);
     heightRest = Math.ceil(gridRowsCount * gridSize - height);
     centerX = (gridColumns * gridSize) / 2 - (gridColumnsCount * gridSize) / 2;
     centerY = (gridRows * gridSize) / 2 - (gridRowsCount * gridSize) / 2;
-    // Generate the list of rects
     rects = grid.generateRects();
-    console.log(rects);
-    // For the list of images
     images = [];
-    // For storing the image URL and avoid duplicates
     imagesUrls = {};
   }
 
@@ -133,14 +125,11 @@ import stageShader from "./shaders/stageFragment.glsl";
   function initApp() {
     // Create a PixiJS Application, using the view (canvas) provided
     app = new PIXI.Application({ view });
-    // Resizes renderer view in CSS pixels to allow for resolutions other than 1
     app.renderer.autoDensity = true;
-    // Resize the view to match viewport size
     app.renderer.resize(width, height);
 
     // Set the distortion filter for the entire stage
     const stageFragmentShader = stageShader;
-    //const stageFragmentShader = resources["./shaders/stageFragment.glsl"].data;
     const stageFilter = new PIXI.Filter(
       undefined,
       stageFragmentShader,
@@ -151,23 +140,17 @@ import stageShader from "./shaders/stageFragment.glsl";
 
   // Init the gridded background
   function initBackground() {
-    // Create a new empty Sprite and define its size
     background = new PIXI.Sprite();
     background.width = width;
     background.height = height;
-    // Get the code for the fragment shader from the loaded resources
     const backgroundFragmentShader =
       resources["./shaders/backgroundFragment.glsl"].data;
-    // Create a new Filter using the fragment shader and the uniforms
-    // We don't need a custom vertex shader, so we set it as `undefined`
     const backgroundFilter = new PIXI.Filter(
       undefined,
       backgroundFragmentShader,
       uniforms
     );
-    // Assign the filter to the background Sprite
     background.filters = [backgroundFilter];
-    // Add the background to the stage
     app.stage.addChild(background);
   }
 
@@ -179,71 +162,29 @@ import stageShader from "./shaders/stageFragment.glsl";
 
   // Load texture for an image, giving its index
   function loadTextureForImage(index) {
-    // Get image Sprite
     const image = images[index];
-    // Set the url to get a random image from Unsplash Source, given image dimensions
-    //const url = `https://source.unsplash.com/random/${image.width}x${image.height}`;
-    //console.log(image.width);
     image.width = 300;
     image.height = 300;
-    const url = "./../assets/img/parasite-still.png";
+    const url = imagesArray[Math.floor(Math.random() * imagesArray.length)][0];
     // Get the corresponding rect, to store more data needed (it is a normal Object)
     const rect = rects[index];
-    // Create a new AbortController, to abort fetch if needed
-    const { signal } = (rect.controller = new AbortController());
 
     image.texture = PIXI.Texture.from(url);
     rect.loaded = true;
-
-    // Fetch the image
-    // fetch(url, { signal })
-    //   .then((response) => {
-    //     // Get image URL, and if it was downloaded before, load another image
-    //     // Otherwise, save image URL and set the texture
-    //     const id = response.url.split('?')[0];
-    //     if (imagesUrls[id]) {
-    //       loadTextureForImage(index);
-    //     } else {
-    //       imagesUrls[id] = true;
-    //       image.texture = PIXI.Texture.from(response.url);
-    //       rect.loaded = true;
-    //       console.log(image.texture);
-    //     }
-    //   })
-    //   .catch(() => {
-    //     // Catch errors silently, for not showing the following error message if it is aborted:
-    //     // AbortError: The operation was aborted.
-    //   });
   }
 
   // Add solid rectangles and images
   function initRectsAndImages() {
-    // Create a new Graphics element to draw solid rectangles
-    const graphics = new PIXI.Graphics();
-    // Select the color for rectangles
-    graphics.beginFill(0x000000);
-    // Loop over each rect in the list
     rects.forEach((rect) => {
       // Create a new Sprite element for each image
       const image = new PIXI.Sprite();
-      // Set image's position and size
       image.x = rect.x * gridSize;
       image.y = rect.y * gridSize;
       image.width = rect.w * gridSize - imagePadding;
       image.height = rect.h * gridSize - imagePadding;
-      // Set it's alpha to 0, so it is not visible initially
       image.alpha = 0;
-      // Add image to the list
       images.push(image);
-      // Draw the rectangle
-      console.log(image);
-      //graphics.drawRect(image.x, image.y, image.width, image.height);
     });
-    // Ends the fill action
-    graphics.endFill();
-    // Add the graphics (with all drawn rects) to the container
-    container.addChild(graphics);
-    // Add all image's Sprites to the container
     images.forEach((image) => {
       container.addChild(image);
     });
@@ -252,14 +193,9 @@ import stageShader from "./shaders/stageFragment.glsl";
   // Check if rects intersects with the viewport
   // and loads corresponding image
   function checkRectsAndImages() {
-    // Loop over rects
     rects.forEach((rect, index) => {
-      // Get corresponding image
       const image = images[index];
-      // Check if the rect intersects with the viewport
       if (rectIntersectsWithViewport(rect)) {
-        // If rect just has been discovered
-        // start loading image
         if (!rect.discovered) {
           rect.discovered = true;
           loadTextureForImage(index);
@@ -267,18 +203,6 @@ import stageShader from "./shaders/stageFragment.glsl";
         // If image is loaded, increase alpha if possible
         if (rect.loaded && image.alpha < 1) {
           image.alpha += 0.01;
-        }
-      } else {
-        // The rect is not intersecting
-        // If the rect was discovered before, but the
-        // image is not loaded yet, abort the fetch
-        if (rect.discovered && !rect.loaded) {
-          rect.discovered = false;
-          rect.controller.abort();
-        }
-        // Decrease alpha if possible
-        if (image.alpha > 0) {
-          image.alpha -= 0.01;
         }
       }
     });
@@ -349,9 +273,7 @@ import stageShader from "./shaders/stageFragment.glsl";
     initEvents();
 
     // Animation loop
-    // Code here will be executed on every animation frame
     app.ticker.add(() => {
-      // Multiply the values by a coefficient to get a smooth animation
       uniforms.uPointerDown +=
         (pointerDownTarget - uniforms.uPointerDown) * 0.075;
       uniforms.uPointerDiff.x += (diffX - uniforms.uPointerDiff.x) * 0.2;
@@ -364,19 +286,15 @@ import stageShader from "./shaders/stageFragment.glsl";
     });
   }
 
-  // Clean the current Application
   function clean() {
-    // Stop the current animation
     app.ticker.stop();
 
-    // Remove event listeners
     app.stage
       .off("pointerdown", onPointerDown)
       .off("pointerup", onPointerUp)
       .off("pointerupoutside", onPointerUp)
       .off("pointermove", onPointerMove);
 
-    // Abort all fetch calls in progress
     rects.forEach((rect) => {
       if (rect.discovered && !rect.loaded) {
         rect.controller.abort();
@@ -384,8 +302,6 @@ import stageShader from "./shaders/stageFragment.glsl";
     });
   }
 
-  // On resize, reinit the app (clean and init)
-  // But first debounce the calls, so we don't call init too often
   let resizeTimer;
   function onResize() {
     if (resizeTimer) clearTimeout(resizeTimer);
@@ -394,11 +310,13 @@ import stageShader from "./shaders/stageFragment.glsl";
       init();
     }, 200);
   }
-  // Listen to resize event
+
   window.addEventListener("resize", onResize);
 
   // Load resources, then init the app
   PIXI.Loader.shared
     .add(["./shaders/stageFragment.glsl", "./shaders/backgroundFragment.glsl"])
     .load(init);
-})();
+};
+
+gallery();
