@@ -59,10 +59,12 @@ const animateTextIn = () => {
     opacity: 0,
     delay: 0.5,
   });
-  gsap.from(".synopsis__link", {
+  gsap.from(".btn__synopsis", {
+    scaleY: 0,
+    scaleX: 0,
     y: 300,
     opacity: 0,
-    delay: 0.6,
+    delay: 1.5,
   });
 };
 

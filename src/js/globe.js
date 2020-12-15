@@ -48,9 +48,8 @@ if (WEBGL.isWebGLAvailable()) {
   controls.autoRotate = true;
   controls.autoRotateSpeed = +1.0;
   controls.enablePan = false;
-  controls.minDistance = 5;
-  controls.maxDistance = 6;
-  //controls.target = new THREE.Vector3(-1, -5.4, 0);
+  controls.minDistance = 4;
+  controls.maxDistance = 5.5;
 
   // GROUP - Globe & Markers
   group = new THREE.Group();
@@ -85,6 +84,8 @@ const onMouseClick = (e) => {
 
   raycaster.setFromCamera(mouse, camera);
   const intersects = raycaster.intersectObjects(scene.children);
+
+  console.log(intersects);
 
   for (let i = 0; i < intersects.length; i++) {
     const tl = gsap.timeline();
@@ -142,6 +143,16 @@ const onMouseClick = (e) => {
       "zoomGlobe"
     );
 
+    tl.to(
+      ".active__movie",
+      {
+        duration: 0.5,
+        x: 500,
+        delay: 0.8,
+      },
+      "zoomGlobe"
+    );
+
     document.body.style.background = "#29245e";
     controls.autoRotate = false;
   }
@@ -179,6 +190,16 @@ const findClickedMovie = (intersectData) => {
   autorun(() => {
     console.log("auto run - globe");
   });
+
+  const activeMovieTitle = document.querySelector(".active__movie-title");
+  activeMovieTitle.textContent = "";
+  activeMovieTitle.textContent = clickedMovie.title;
+  const activeMovieCountry = document.querySelector(".active__movie-country");
+  activeMovieCountry.textContent = "";
+  activeMovieCountry.textContent = clickedMovie.country;
+  const activeMovieStatus = document.querySelector(".active__movie-status");
+  activeMovieStatus.textContent = "";
+  activeMovieStatus.textContent = clickedMovie.status;
 };
 
 const onClickIntro = () => {
@@ -213,7 +234,7 @@ const createMarkers = () => {
       color: 0x0bb4fa,
     });
     marker = new THREE.Mesh(
-      new THREE.SphereBufferGeometry(0.05, 32, 32),
+      new THREE.SphereBufferGeometry(0.03, 32, 32),
       material
     );
     marker.name = "marker";
@@ -258,7 +279,6 @@ const init = () => {
   mouse = new THREE.Vector2();
   container.addEventListener("click", onMouseClick, false);
   container.addEventListener("mousemove", onMouseMove, false);
-  //container.addEventListener("mouseover", raycastHover, false);
 
   if (window.location.pathname === "/") {
     const button = document.querySelector(".btn__intro");
