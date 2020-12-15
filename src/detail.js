@@ -4,7 +4,7 @@ import "./js/cast/castImage";
 import "./js/cursor";
 import "./js/detailTextAnimation";
 import "./js/globe";
-//import "./js/audioToggle";
+import "./js/audioToggle";
 import { Howl, Howler } from "howler";
 
 import currentMovie from "./js/model/currentMovie";

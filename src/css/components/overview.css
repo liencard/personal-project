@@ -148,14 +148,13 @@ body {
 
 .icon__sound-on rect {
   width: 3px;
-  transform: scaleY(1);
+  height: 16px;
   transform-origin: bottom;
 }
 
 .icon__sound-off rect {
   width: 3px;
   height: 2px;
-  transform: scaleY(0);
   transform-origin: bottom;
 }
 
