@@ -1,7 +1,7 @@
 # Personal Project
 
 ## De Klant
-Ik heb erover gekozen, zelf klant te zijn, en me verder te verdiepen in iets dat mij interesseerd.
+Ik heb erover gekozen, zelf klant te zijn, en me verder te verdiepen in iets dat mij interesseert.
 Zo hoop ik hier sterk in mijn schoenen in te staan op het einde van de rit en dit als een extra troef te hebben later in het werkveld.
 
 ##  Onderzoeksvraag
